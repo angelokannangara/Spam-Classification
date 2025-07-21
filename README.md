@@ -1,42 +1,61 @@
-# Spam-Classification
-# 📧 Spam Classification using Machine Learning
+# 📧 Spam Message Classifier (ML Project)
 
-This project is a simple spam detection system built using Python and machine learning, developed and tested in Google Colab. It classifies messages as **spam** or **ham (not spam)** using Natural Language Processing (NLP) and supervised learning models.
+This project is a machine learning-based **SMS spam classification system** that detects whether a given message is spam or not. It uses Natural Language Processing (NLP) techniques and a **Multinomial Naive Bayes** classifier. Built and tested using **Google Colab**.
 
-## 🚀 Features
+---
 
-- Text pre-processing (tokenization, stopword removal, stemming)
-- Feature extraction using TF-IDF
-- Classification using Naive Bayes / Logistic Regression
-- Evaluation metrics (accuracy, precision, recall, F1-score)
+## 📂 Dataset
 
-## 📁 Dataset
+- **Source**: [UCI SMS Spam Collection Dataset](https://archive.ics.uci.edu/ml/datasets/sms+spam+collection)
+- Total messages: **5,572**
+- Classes: `ham` (legitimate) and `spam` (unwanted)
 
-Used the popular **SMS Spam Collection Dataset**, which contains 5,574 English messages labeled as spam or ham.
+---
 
-You can download the dataset here:  
-📎 [UCI ML Repository](https://archive.ics.uci.edu/ml/datasets/sms+spam+collection)
+## 🔧 Project Workflow
 
-## 🛠️ Technologies Used
+### 1. **Data Cleaning & Preprocessing**
+- Dropped unnecessary columns
+- Renamed columns (`v1 → class`, `v2 → sms`)
+- Removed duplicates
+- Added a `length` feature
+- Visualized text length distribution
 
-- Python
-- Google Colab
-- Scikit-learn
-- Pandas
-- Numpy
-- Matplotlib / Seaborn
-- NLTK (for text processing)
+### 2. **Text Processing**
+- Lowercasing
+- Tokenization
+- Removing punctuation and stopwords
+- Stemming using `PorterStemmer`
+- Final cleaned messages stored in `sms_cleaned`
+
+### 3. **Feature Engineering**
+- TF-IDF Vectorization (`max_features = 3000`)
+- Transformed cleaned messages into numerical feature vectors
+
+### 4. **Model Training**
+- Split data into training and testing (80:20)
+- Used **Multinomial Naive Bayes** classifier
+
+### 5. **Evaluation**
+- Achieved an accuracy of **97.09%** on the test set
+
+---
 
 ## 📊 Model Performance
 
-Achieved over **95% accuracy** on the test set with a simple Naive Bayes classifier.
+| Metric     | Value     |
+|------------|-----------|
+| Accuracy   | 97.09%    |
+| Algorithm  | MultinomialNB |
+| Features   | 3000 (TF-IDF) |
 
-## 📌 How to Use
+---
 
-1. Open the notebook in Google Colab
-2. Upload the dataset or mount your Google Drive
-3. Run all cells to train and test the model
+## 🔍 Sample Prediction
 
-## 📈 Example Output
-
-
+```python
+message = "Congratulations! You've won a free ticket. Call now!"
+cleaned = clean_text(message)
+vectorized = tf_vec.transform([cleaned])
+prediction = model.predict(vectorized)
+print(prediction)  # Output: ['spam']
